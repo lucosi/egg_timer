@@ -84,7 +84,6 @@ class _EggTimerDisplayState extends State<EggTimerDisplay> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    
     if (widget.eggTimeState == EggTimerState.ready) {
       selectionTimeSlideController.reverse();
       coutDownTimeFadeController.forward();
@@ -94,7 +93,7 @@ class _EggTimerDisplayState extends State<EggTimerDisplay> with TickerProviderSt
     }
 
     return new Padding(
-      padding: const EdgeInsets.only(top: 54.0),
+      padding: const EdgeInsets.only(top: 10.0),
       child: new Stack(
         alignment: Alignment.center,
         children: [
@@ -108,7 +107,7 @@ class _EggTimerDisplayState extends State<EggTimerDisplay> with TickerProviderSt
               textAlign: TextAlign.center,
               style: const TextStyle(
                   fontFamily: 'BebasNeue',
-                  fontSize: 150.0,
+                  fontSize: 120.0,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 10.0),
             ),

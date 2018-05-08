@@ -18,7 +18,7 @@ class EggTimerButton extends StatelessWidget {
       splashColor: const Color(0x22000000),
       onPressed: onPressed,
       child: new Padding(
-        padding: const EdgeInsets.all(25.0),
+        padding: const EdgeInsets.all(20.0),
         child: new Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

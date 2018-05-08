@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 
-
 final Color gradientTop = const Color(0xFFF5F5F5);
 final Color gradientBotton = const Color(0xFFE8E8EB);
 
@@ -90,13 +89,11 @@ class _EggTimerDialState extends State<EggTimerDial> {
 }
 
 class GestureRecognizeState extends StatefulWidget {
-
   final child;
   final Duration currentTime;
   final Duration maxTime;
   final onTimeSelected;
   final onDialStopTurning;
-
 
   GestureRecognizeState({
     this.child,
@@ -112,7 +109,6 @@ class GestureRecognizeState extends StatefulWidget {
 }
 
 class _GestureRecognizeStateState extends State<GestureRecognizeState> {
-
   double startAngle;
 
   Duration startTime;
@@ -132,21 +128,16 @@ class _GestureRecognizeStateState extends State<GestureRecognizeState> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return new GestureDetector(
-
       child: widget.child,
-
       onPanStart: (DragStartDetails pan) {
         RenderBox getBox = context.findRenderObject();
         var local = getBox.globalToLocal(pan.globalPosition);
         startAngle = _conculateAngle(local, getBox.size);
         startTime = widget.currentTime;
       },
-
       onPanUpdate: (DragUpdateDetails pan) {
         RenderBox getBox = context.findRenderObject();
         var local = getBox.globalToLocal(pan.globalPosition);
@@ -154,12 +145,15 @@ class _GestureRecognizeStateState extends State<GestureRecognizeState> {
         if (time != Null) {
           final angleDiff = time - startAngle;
           final timeDiffInSeconds = (angleDiff * (2 * pi)).round();
-          currentTimeTmp = new Duration(seconds: startTime.inSeconds + timeDiffInSeconds);
-          clockTime = Duration(minutes: currentTimeTmp.inMinutes.round()); 
+          currentTimeTmp =
+              new Duration(seconds: startTime.inSeconds + timeDiffInSeconds);
+          clockTime = Duration(
+              minutes: currentTimeTmp.inMinutes >= widget.maxTime.inMinutes
+                  ? const Duration(seconds: 0)
+                  : currentTimeTmp.inMinutes.round());
           widget.onTimeSelected(clockTime);
         }
       },
-
       onPanEnd: (DragEndDetails pan) {
         widget.onDialStopTurning(clockTime);
         startAngle = null;
@@ -170,9 +164,7 @@ class _GestureRecognizeStateState extends State<GestureRecognizeState> {
   }
 }
 
-
 class TickPainter extends CustomPainter {
-
   final longTick = 14.0;
   final shortTick = 4.0;
 

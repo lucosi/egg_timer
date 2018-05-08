@@ -55,7 +55,8 @@ class _EggTimerDialKnobState extends State<EggTimerDialKnob> {
                   )),
               child: new Center(
                 child: new Transform(
-                  transform: new Matrix4.rotationZ(2 * pi * widget.rotationPercent),
+                  transform:
+                      new Matrix4.rotationZ(2 * pi * widget.rotationPercent),
                   alignment: Alignment.center,
                   child: new Image.network(
                     'https://avatars1.githubusercontent.com/u/14101776?s=200&v=4',

@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:egg_timer/egg_timer.dart';
 import 'package:egg_timer/egg_timer_controls.dart';
 import 'package:egg_timer/egg_timer_dial.dart';
 import 'package:egg_timer/egg_timer_time_display.dart';
 import 'package:flutter/material.dart';
+import 'package:device_info/device_info.dart';
+
 
 final Color gradientTop = const Color(0xFFF5F5F5);
 final Color gradientBotton = const Color(0xFFE8E8EB);
@@ -10,13 +14,11 @@ final Color gradientBotton = const Color(0xFFE8E8EB);
 void main() => runApp(new MyApp());
 
 class MyApp extends StatefulWidget {
-
   @override
   _MyAppState createState() => new _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  
   EggTimer eggTimer;
 
   _MyAppState() {
@@ -28,7 +30,7 @@ class _MyAppState extends State<MyApp> {
 
   _onTimeSelected(Duration newTime) {
     setState(() {
-      if (newTime.inSeconds >= 0){
+      if (newTime.inSeconds >= 0) {
         eggTimer.currentTime = newTime;
       } else if (newTime.inSeconds > eggTimer.maxTime.inSeconds) {
         eggTimer.currentTime = Duration(seconds: 0);
@@ -58,13 +60,19 @@ class _MyAppState extends State<MyApp> {
         fontFamily: 'BebasNeue',
       ),
       home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text(
+            Platform.isAndroid ? 'Android Device' : 'iOS Decvice',
+            ),
+        
+        ),
         body: new Container(
           decoration: new BoxDecoration(
               gradient: new LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [gradientTop, gradientBotton],
-          )), 
+          )),
           child: new Center(
             child: new Column(
               children: [
