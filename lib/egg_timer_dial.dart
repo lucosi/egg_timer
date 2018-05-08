@@ -117,6 +117,7 @@ class _GestureRecognizeStateState extends State<GestureRecognizeState> {
 
   Duration startTime;
   Duration currentTimeTmp;
+  Duration clockTime;
 
 // Calculete the angle
   _conculateAngle(Offset point, Size size) {
@@ -154,19 +155,16 @@ class _GestureRecognizeStateState extends State<GestureRecognizeState> {
           final angleDiff = time - startAngle;
           final timeDiffInSeconds = (angleDiff * (2 * pi)).round();
           currentTimeTmp = new Duration(seconds: startTime.inSeconds + timeDiffInSeconds);
-          widget.onTimeSelected(currentTimeTmp);
+          clockTime = Duration(minutes: currentTimeTmp.inMinutes.round()); 
+          widget.onTimeSelected(clockTime);
         }
       },
 
       onPanEnd: (DragEndDetails pan) {
-        widget.onDialStopTurning(currentTimeTmp);
+        widget.onDialStopTurning(clockTime);
         startAngle = null;
         currentTimeTmp = null;
         startTime = null;
-      },
-
-      onPanCancel: () {
-        // print('Pan Cancell!');
       },
     );
   }

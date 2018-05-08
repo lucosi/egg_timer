@@ -17,19 +17,50 @@ class EggTimer {
 
   get currentTime {
     return _currentTime;
-  } 
+  }
 
   set currentTime(newTime) {
     if (state == EggTimerState.ready) {
       _currentTime = newTime;
       lastStartTime = currentTime;
     }
-  } 
+  }
 
   resume() {
-    state = EggTimerState.running;
+    if (state != EggTimerState.running) {
+      state = EggTimerState.running;
     stopwatch.start();
     _tick();
+    }
+  }
+
+  pause() {
+    if (state == EggTimerState.running) {
+      state = EggTimerState.poused;
+      stopwatch.stop();
+      if (onTimeUpdate != null) {
+        onTimeUpdate();
+      }
+    }
+  }
+
+  restart() {
+    if (state == EggTimerState.poused) {
+      state = EggTimerState.running;
+      _currentTime = lastStartTime;
+      stopwatch.reset();
+      stopwatch.start();
+      _tick();
+    }
+  }
+
+  reset() {
+    if (state == EggTimerState.poused) {
+      state = EggTimerState.ready;
+      _currentTime = const Duration(seconds: 0);
+      lastStartTime = _currentTime;
+      stopwatch.reset();
+    }
   }
 
   _tick() {

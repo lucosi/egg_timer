@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
 
   _onTimeSelected(Duration newTime) {
     setState(() {
-      if (newTime.inSeconds >= 0) {
+      if (newTime.inSeconds >= 0){
         eggTimer.currentTime = newTime;
       } else if (newTime.inSeconds > eggTimer.maxTime.inSeconds) {
         eggTimer.currentTime = Duration(seconds: 0);
@@ -81,7 +81,21 @@ class _MyAppState extends State<MyApp> {
                   onDialStopTurning: _onDialStopTurning,
                 ),
                 new Expanded(child: new Container()),
-                new EggTimerControls(),
+                new EggTimerControls(
+                  eggTimerState: eggTimer.state,
+                  onPause: () {
+                    setState(() => eggTimer.pause());
+                  },
+                  onResume: () {
+                    setState(() => eggTimer.resume());
+                  },
+                  onReset: () {
+                    setState(() => eggTimer.reset());
+                  },
+                  onRestart: () {
+                    setState(() => eggTimer.restart());
+                  },
+                ),
                 new Container(
                   width: double.infinity,
                   color: const Color.fromARGB(10, 1000, 1000, 1000),
